@@ -30,8 +30,8 @@ mkdir -p $projDir/cmake
 cmakeConfig="$projDir/cmake/$projName"Config.cmake.in
 cat $srcDir/cmake/projConfig.cmake.in | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $cmakeConfig
 
-# handle build.sh, clean.sh
-cp $srcDir/build.sh $srcDir/clean.sh $projDir
+# handle build.sh, clean.sh, tests-install.sh
+cp $srcDir/build.sh $srcDir/clean.sh $srcDir/tests-install.sh $projDir
 
 # copy empty.c
 mkdir -p $projDir/src/$projName
