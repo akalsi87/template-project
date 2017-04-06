@@ -1,7 +1,7 @@
 /*! exports.h */
 
-#ifndef _<PKG>_VERSION_HPP_
-#define _<PKG>_VERSION_HPP_
+#ifndef _<PKG>_VERSION_H_
+#define _<PKG>_VERSION_H_
 
 #if defined(_WIN32) && !defined(__GCC__)
 #  ifdef BUILDING_<PKG>
@@ -28,4 +28,4 @@
 #  define <PKG>_C_API <PKG>_API
 #endif
 
-#endif//_<PKG>_VERSION_HPP_
+#endif//_<PKG>_VERSION_H_
