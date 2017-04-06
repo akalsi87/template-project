@@ -1,0 +1,20 @@
+# <PKG>Config.cmake
+
+# - Config file for the <PKG> package
+# It defines the following variables
+#  <PKGUPPER>_INCLUDE_DIRS - include directories for <PKG>
+#  <PKGUPPER>_LIBRARIES    - libraries to link against
+#  <PKGUPPER>_EXECUTABLE   - executable if any
+
+# Compute paths
+get_filename_component(<PKGUPPER>_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(<PKGUPPER>_INCLUDE_DIRS include)
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+if(NOT TARGET <PKG> AND NOT <PKGUPPER>_BINARY_DIR)
+  include("${<PKGUPPER>_CMAKE_DIR}/<PKG>Targets.cmake")
+endif()
+
+# These are IMPORTED targets created by <PKG>Targets.cmake
+set(<PKGUPPER>_LIBRARIES <PKG>)
+set(<PKGUPPER>_EXECUTABLE )

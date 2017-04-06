@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+exec=`realpath $0`
+root=`dirname $exec`
+
+cmake -H$root -B$root/_build -DCMAKE_INSTALL_PREFIX=$root/_install -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=1
+env VERBOSE=1 cmake --build $root/_build --target check
+env VERBOSE=1 cmake --build $root/_build --target install
