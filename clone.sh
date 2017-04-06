@@ -22,6 +22,7 @@ cat $srcDir/CMakeLists.txt | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$proj
 
 # handle export header
 mkdir -p $projDir/export/$projName
+mkdir -p $projDir/include/$projName
 cat $srcDir/export/template-project/version.hpp | sed "s/<PKG>/$projNameUpper/g" > $projDir/export/$projName/version.hpp
 
 # handle cmake/projConfig.cmake.in
