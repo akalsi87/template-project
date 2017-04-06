@@ -28,4 +28,4 @@
 #  define <PKG>_C_API <PKG>_API
 #endif
 
-#endif//_<PKG>_VERSION_H_
+#endif/*_<PKG>_VERSION_H_*/
