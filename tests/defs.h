@@ -9,6 +9,7 @@
 #  define setupSuite(name) EXTERN_C void name##SuiteSetup()
 #else
 #  define EXTERN_C
+#  define setupSuite(name) void name##SuiteSetup()
 #endif
 
 typedef void (*test_fn_t)(void);

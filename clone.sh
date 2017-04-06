@@ -23,7 +23,7 @@ cat $srcDir/CMakeLists.txt | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$proj
 # handle export header
 mkdir -p $projDir/export/$projName
 mkdir -p $projDir/include/$projName
-cat $srcDir/export/template-project/version.hpp | sed "s/<PKG>/$projNameUpper/g" > $projDir/export/$projName/version.hpp
+cat $srcDir/export/proj/exports.h | sed "s/<PKG>/$projNameUpper/g" > $projDir/export/$projName/exports.h
 
 # handle cmake/projConfig.cmake.in
 mkdir -p $projDir/cmake
@@ -33,13 +33,14 @@ cat $srcDir/cmake/projConfig.cmake.in | sed "s/<PKG>/$projName/g" | sed "s/<PKGU
 # handle build.sh, clean.sh
 cp $srcDir/build.sh $srcDir/clean.sh $projDir
 
-# copy empty.cpp
+# copy empty.c
 mkdir -p $projDir/src/$projName
-cp $srcDir/src/proj/empty.cpp $projDir/src/$projName
+cp $srcDir/src/proj/empty.c $projDir/src/$projName
 
 # copy tests
 mkdir -p $projDir/tests/install
 cp -rf $srcDir/tests $projDir/
+cat $srcDir/tests/exports.c | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/tests/exports.c
 
 # handle tests.cmake and install/CMakeLists.txt
 cat $srcDir/tests.cmake | sed "s/<PKG>/$projName/g" > $projDir/tests.cmake
