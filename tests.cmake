@@ -8,15 +8,15 @@ file(GLOB src_files ${test_dir}/*.c ${test_dir}/*.cpp)
 
 msg("Got test src: ${src_files}")
 
-add_executable(tests ${src_files})
+add_executable(tests.exec ${src_files})
 
 target_include_directories(
-  tests
+  tests.exec
   PRIVATE ${PROJECT_SOURCE_DIR}/export)
 
-target_link_libraries(tests <PKG>)
+target_link_libraries(tests.exec <PKG>)
 
-add_custom_command(
-  TARGET tests
-  POST_BUILD
-  COMMAND $<TARGET_FILE:tests>)
+add_custom_target(
+  tests
+  DEPENDS tests.exec
+  COMMAND $<TARGET_FILE:tests.exec>)
