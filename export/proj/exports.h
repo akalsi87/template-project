@@ -3,8 +3,10 @@
 #ifndef _<PKG>_VERSION_H_
 #define _<PKG>_VERSION_H_
 
-#if defined(_WIN32) && !defined(__GCC__)
-#  ifdef BUILDING_<PKG>
+#if defined(USE_<PKG>_STATIC)
+#  define <PKG>_API
+#elif defined(_WIN32) && !defined(__GCC__)
+#  ifdef BUILDING_<PKG>_SHARED
 #    define <PKG>_API __declspec(dllexport)
 #  else
 #    define <PKG>_API __declspec(dllimport)
@@ -13,7 +15,7 @@
 #    define _CRT_SECURE_NO_WARNINGS
 #  endif
 #else
-#  ifdef BUILDING_<PKG>
+#  ifdef BUILDING_<PKG>_SHARED
 #    define <PKG>_API __attribute__ ((visibility ("default")))
 #  else
 #    define <PKG>_API 

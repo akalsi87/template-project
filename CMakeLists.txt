@@ -30,13 +30,21 @@ msg("Got src files: ${src_files}")
 add_library(<PKG> ${src_files})
 
 if (BUILD_SHARED_LIBS)
-  set(build_flag BUILDING_<PKGUPPER>)
+  set(build_flag BUILDING_<PKGUPPER>_SHARED)
+  set(pub_build_flag )
 else()
   set(build_flag )
+  set(pub_build_flag USE_<PKGUPPER>_STATIC)
+endif()
+
+if (BUILD_SHARED_LIBS)
+  set_target_properties(<PKG> PROPERTIES VERSION ${ver_string} SOVERSION ${ver_maj})
 endif()
 
 target_compile_definitions(
   <PKG>
+  PUBLIC
+    ${pub_build_flag}
   PRIVATE
     ${build_flag}
     <PKGUPPER>_VER_MAJ=${ver_maj}
@@ -52,13 +60,13 @@ target_include_directories(
 
 target_link_libraries(<PKG> )
 
-target_compile_features(
-  <PKG>
-  PUBLIC
-  cxx_nullptr
-  cxx_lambdas
-  cxx_auto_type
-  cxx_static_assert)
+#target_compile_features(
+#  <PKG>
+#  PUBLIC
+#  cxx_nullptr
+#  cxx_lambdas
+#  cxx_auto_type
+#  cxx_static_assert)
 
 configure_file(
   cmake/<PKG>Config.cmake.in

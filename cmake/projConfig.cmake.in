@@ -18,3 +18,9 @@ endif()
 # These are IMPORTED targets created by <PKG>Targets.cmake
 set(<PKGUPPER>_LIBRARIES <PKG>)
 set(<PKGUPPER>_EXECUTABLE )
+
+get_target_property(_tgt_type <PKG> TYPE)
+string(COMPARE EQUAL "${_tgt_type}" "STATIC_LIBRARY" _is_static_lib)
+if (_is_static_lib)
+  # include dependencies; static libs are linked to their deps publicly
+endif()
