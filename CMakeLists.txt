@@ -122,3 +122,4 @@ set(CPACK_PACKAGE_VENDOR "Aaditya Kalsi")
 set(CPACK_PACKAGE_CONTACT "akalsi.dev@gmail.com")
 set(CPACK_STRIP_FILES 1)
 include(CPack)
+
