@@ -1,5 +1,9 @@
 /*! defs.h */
 
+#if defined(_MSC_VER)
+#  define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <setjmp.h>
@@ -48,3 +52,4 @@ void _add_test(char const* name, test_fn_t fn);
 
 #define defineSuite(name)     \
     EXTERN_C void name##SuiteSetup()
+

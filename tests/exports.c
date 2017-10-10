@@ -10,7 +10,7 @@
 #  define VER_DEF_FOUND 0
 #endif
 
-void exportHdr()
+void exportHdr(void)
 {
     testThat(1 == VER_DEF_FOUND);
 }

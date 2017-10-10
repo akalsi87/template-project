@@ -35,9 +35,9 @@ cat $srcDir/cmake/projConfig.cmake.in | sed "s/<PKG>/$projName/g" | sed "s/<PKGU
 # handle build.sh, clean.sh, tests-install.sh
 cp $srcDir/build.sh $srcDir/clean.sh $srcDir/tests-install.sh $projDir
 
-# copy empty.c
+# copy stub.c
 mkdir -p $projDir/src/$projName
-cp $srcDir/src/proj/empty.c $projDir/src/$projName
+cat $srcDir/src/proj/stub.c | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/src/$projName/stub.c
 
 # copy tests
 mkdir -p $projDir/tests/install
