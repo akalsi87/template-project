@@ -108,7 +108,8 @@ install(
 
 install(
   FILES ${PROJECT_SOURCE_DIR}/LICENSE
-  DESTINATION share/<PKG>)
+  DESTINATION share/<PKG>
+  RENAME LICENSE.<PKG>)
 
 # TESTS
 

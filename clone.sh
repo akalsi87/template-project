@@ -7,10 +7,12 @@ fi
 
 set -e
 
-exe=`realpath $0`
-srcDir=`dirname $exe`
+dirnm=`dirname $0`
+filnm=`basename $0`
+exec=`cd $dirnm && pwd`/$filnm
+srcDir=`dirname $exec`
 
-projDir=`realpath $1`
+projDir=`mkdir -p $1 && cd $1 && pwd`
 
 mkdir -p $projDir
 

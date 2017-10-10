@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
-exec=`realpath $0`
+dirnm=`dirname $0`
+filnm=`basename $0`
+exec=`cd $dirnm && pwd`/$filnm
 root=`dirname $exec`
 
 set -e
