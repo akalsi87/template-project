@@ -31,6 +31,8 @@ cat $srcDir/export/proj/exports.h | sed "s/<PKG>/$projNameUpper/g" > $projDir/ex
 mkdir -p $projDir/cmake
 cmakeConfig="$projDir/cmake/$projName"Config.cmake.in
 cat $srcDir/cmake/projConfig.cmake.in | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $cmakeConfig
+cat $srcDir/cmake/deps.cmake | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/cmake/deps.cmake
+cp $srcDir/cmake/HunterGate.cmake $projDir/cmake
 
 # handle build.sh, clean.sh, tests-install.sh
 cp $srcDir/build.sh $srcDir/clean.sh $srcDir/tests-install.sh $projDir
