@@ -23,7 +23,7 @@ get_target_property(_tgt_type <PKG> TYPE)
 string(COMPARE EQUAL "${_tgt_type}" "STATIC_LIBRARY" _is_static_lib)
 if (_is_static_lib)
   # include dependencies; static libs are linked to their deps publicly
-  set(_deps @deps@)
+  set(_deps "@deps@")
   foreach(_dep ${_deps})
     string(REPLACE ":" ";" _pkg_name ${_dep})
     list(GET _pkg_name 0 _pkg_name)

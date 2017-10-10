@@ -20,7 +20,13 @@ target_include_directories(
 
 target_link_libraries(tests_install <PKG>)
 
+if (WIN32)
+  set(path_run PATH="\$PATH$<SEMICOLON>$<TARGET_FILE_DIR:<PKG>>")
+else()
+  set(path_run )
+endif()
+
 add_custom_target(
   tests_run
-  COMMAND tests_install
+  COMMAND ${CMAKE_COMMAND} -E env ${path_run} $<TARGET_FILE:tests_install>
   DEPENDS tests_install)
