@@ -22,7 +22,7 @@ fi
 if [ -z "$GENERATOR" ]; then
     gen_arg=
 else
-    gen_arg="\"-G'$GENERATOR'\""
+    gen_arg="-G'$GENERATOR'"
 fi
 
 cmd="cmake -H$root -B$root/_build $gen_arg -DCMAKE_INSTALL_PREFIX=$root/_install -DCMAKE_BUILD_TYPE="$build" -DBUILD_SHARED_LIBS="$shared" -Wno-dev"
