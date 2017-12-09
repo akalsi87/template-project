@@ -1,7 +1,7 @@
 /*! exports.h */
 
-#ifndef _<PKG>_VERSION_H_
-#define _<PKG>_VERSION_H_
+#ifndef _<PKG>_EXPORTS_H_
+#define _<PKG>_EXPORTS_H_
 
 #if defined(USE_<PKG>_STATIC)
 #  define <PKG>_API
@@ -30,4 +30,4 @@
 #  define <PKG>_C_API <PKG>_API
 #endif
 
-#endif/*_<PKG>_VERSION_H_*/
+#endif/*_<PKG>_EXPORTS_H_*/
