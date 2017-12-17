@@ -25,7 +25,7 @@ else
     gen_arg="-G'$GENERATOR'"
 fi
 
-cmd="cmake -H$root -B$root/_build $gen_arg -DCMAKE_INSTALL_PREFIX=$root/_install -DCMAKE_BUILD_TYPE="$build" -DBUILD_SHARED_LIBS="$shared" -Wno-dev"
+cmd="cmake -H$root -B$root/_build $gen_arg -DCMAKE_INSTALL_PREFIX=$root/_install -DCMAKE_BUILD_TYPE=\"$build\" -DBUILD_SHARED_LIBS=\"$shared\" -Wno-dev"
 sh -c "$cmd"
 env VERBOSE=1 cmake --build $root/_build --target tests --config "$build"
 env VERBOSE=1 cmake --build $root/_build --target install --config "$build"
