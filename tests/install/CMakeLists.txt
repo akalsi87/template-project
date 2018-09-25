@@ -3,6 +3,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
+message("Build type: ${CMAKE_BUILD_TYPE}")
 
 file(GLOB src_files ${TESTS_DIR}/*.c ${TESTS_DIR}/*.cpp)
 set(src_dir ${CMAKE_CURRENT_SOURCE_DIR}/_source)
@@ -22,5 +23,5 @@ target_link_libraries(tests_install <PKG>)
 
 add_custom_target(
   tests_run
-  COMMAND tests_install
+  COMMAND env PATH="${CMAKE_INSTALL_PREFIX}/bin" $<TARGET_FILE:tests_install>
   DEPENDS tests_install)
