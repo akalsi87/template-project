@@ -32,6 +32,9 @@ mkdir -p $projDir/cmake
 cmakeConfig="$projDir/cmake/$projName"Config.cmake.in
 cat $srcDir/cmake/projConfig.cmake.in | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $cmakeConfig
 
+# copy cmake/vcpkg-toolchain.cmake
+cp $srcDir/cmake/vcpkg-toolchain.cmake $projDir/cmake
+
 # handle build.sh, clean.sh, tests-install.sh
 cp $srcDir/build.sh $srcDir/clean.sh $srcDir/tests-install.sh $projDir
 

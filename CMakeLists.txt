@@ -2,6 +2,8 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+include(cmake/vcpkg-toolchain.cmake)
+
 project(<PKG>)
 
 set(ver_maj 0)
