@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-set(CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
 message("-- Build type: ${CMAKE_BUILD_TYPE}")
 message("-- Build dir : ${CMAKE_BINARY_DIR}")
 
