@@ -14,7 +14,7 @@ else
     gen_arg=
 fi
 
-if [ "$CMAKE_BUILD_TYPE" == "" ]; then
+if [ "$CMAKE_BUILD_TYPE" = "" ]; then
     export CMAKE_BUILD_TYPE=Debug
 fi
 
