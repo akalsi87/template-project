@@ -7,6 +7,6 @@ if("vcpkg_path-NOTFOUND" STREQUAL "${vcpkg_path}")
   return()
 endif()
 
-get_filename_component(VCPKG_DIR "${vcpkg_path}" PATH)
+get_filename_component(vcpkg_dir "${vcpkg_path}" PATH)
 
-include(${vcpkg_path}/scripts/buildsystems/vcpkg.cmake)
+include(${vcpkg_dir}/scripts/buildsystems/vcpkg.cmake)
