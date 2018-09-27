@@ -3,7 +3,8 @@
 cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
-message("Build type: ${CMAKE_BUILD_TYPE}")
+message("-- Build type: ${CMAKE_BUILD_TYPE}")
+message("-- Build dir : ${CMAKE_BINARY_DIR}")
 
 file(GLOB src_files ${TESTS_DIR}/*.c ${TESTS_DIR}/*.cpp)
 set(src_dir ${CMAKE_CURRENT_SOURCE_DIR}/_source)

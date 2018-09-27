@@ -6,7 +6,11 @@ set(test_dir ${PROJECT_SOURCE_DIR}/tests)
 
 file(GLOB src_files ${test_dir}/*.c ${test_dir}/*.cpp)
 
-msg("Got test src: ${src_files}")
+msg("Test files:")
+foreach(f ${src_files})
+  string(REPLACE "${PROJECT_SOURCE_DIR}/" "" f "${f}")
+  msg("  ${f}")
+endforeach()
 
 add_executable(tests.exec ${src_files})
 

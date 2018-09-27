@@ -53,3 +53,13 @@ cat $srcDir/tests/install/CMakeLists.txt | sed "s/<PKG>/$projName/g" > $projDir/
 
 # copy LICENSE
 cat $srcDir/LICENSE | sed "s/<YEAR>/`date +%Y`/g" > $projDir/LICENSE
+
+# create .gitignore
+cat <<EOF > $projDir/.gitignore
+# .gitignore
+_build/
+_install/
+tests/install/_source/
+tests/install/_build/
+tests/install/testLog.txt
+EOF
