@@ -63,3 +63,6 @@ tests/install/_source/
 tests/install/_build/
 tests/install/testLog.txt
 EOF
+
+# copy convenience scripts
+cp $srcDir/create*.sh $projDir/
