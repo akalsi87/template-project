@@ -4,15 +4,11 @@
 
 set(test_dir ${PROJECT_SOURCE_DIR}/tests)
 
-file(GLOB src_files ${test_dir}/*.c ${test_dir}/*.cpp)
+file(GLOB tst_files ${test_dir}/*.c ${test_dir}/*.cpp)
 
-msg("Test files:")
-foreach(f ${src_files})
-  string(REPLACE "${PROJECT_SOURCE_DIR}/" "" f "${f}")
-  msg("  ${f}")
-endforeach()
+print_list("Test files:" ${tst_files})
 
-add_executable(tests.exec ${src_files})
+add_executable(tests.exec ${tst_files})
 
 target_include_directories(
   tests.exec

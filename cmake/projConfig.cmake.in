@@ -6,6 +6,9 @@
 #  <PKGUPPER>_LIBRARIES    - libraries to link against
 #  <PKGUPPER>_EXECUTABLE   - executable if any
 
+# Find dependent packages here
+# find_package(...)
+
 # Compute paths
 get_filename_component(<PKGUPPER>_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 set(<PKGUPPER>_INCLUDE_DIRS include)

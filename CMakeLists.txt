@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 3.0)
 project(<PKG>)
 
 include(cmake/vcpkg-toolchain.cmake)
+include(cmake/proj-helpers.cmake)
 
 ## Library version
 set(ver_maj 0)
@@ -13,35 +14,31 @@ set(ver_patch 0)
 set(ver_string ${ver_maj}.${ver_min}.${ver_patch})
 
 ## Symbol visibility
-set(CMAKE_C_VISIBILITY_PRESET hidden)
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+if (BUILD_SHARED_LIBS)
+  set(CMAKE_C_VISIBILITY_PRESET hidden)
+  set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+endif()
+
+## Set the CMake C++ compiler standard
+# set(CMAKE_CXX_STANDARD 11)
 
 set(PROJECT_VERSION ${ver_string})
 
-## Project specific messages
-macro(msg m)
-  message("## [<PKG>] ${m}")
-endmacro(msg)
-
 ## Setup sources
 
-msg("Source dir: ${PROJECT_SOURCE_DIR}")
+file(GLOB_RECURSE
+     export_hdr
+     ${PROJECT_SOURCE_DIR}/export/*.h
+     ${PROJECT_SOURCE_DIR}/export/*.hpp)
 
-file(GLOB_RECURSE export_hdr ${PROJECT_SOURCE_DIR}/export/*.h ${PROJECT_SOURCE_DIR}/*.hpp)
+file(GLOB_RECURSE
+     src_files
+     ${PROJECT_SOURCE_DIR}/src/*.c
+     ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
-file(GLOB_RECURSE src_files ${PROJECT_SOURCE_DIR}/src/*.c ${PROJECT_SOURCE_DIR}/src/*.cpp)
-
-msg("Export headers:")
-foreach(f ${export_hdr})
-  string(REPLACE "${PROJECT_SOURCE_DIR}/" "" f "${f}")
-  msg("  ${f}")
-endforeach()
-
-msg("Source files:")
-foreach(f ${src_files})
-  string(REPLACE "${PROJECT_SOURCE_DIR}/" "" f "${f}")
-  msg("  ${f}")
-endforeach()
+print_list("Project root:" "${PROJECT_SOURCE_DIR}")
+print_list("Export headers:" ${export_hdr})
+print_list("Source files:" ${src_files})
 
 ## Add library
 add_library(<PKG> ${src_files})
@@ -56,7 +53,11 @@ else()
 endif()
 
 if (BUILD_SHARED_LIBS)
-  set_target_properties(<PKG> PROPERTIES VERSION ${ver_string} SOVERSION ${ver_maj})
+  set_target_properties(
+    <PKG>
+    PROPERTIES
+      VERSION ${ver_string}
+      SOVERSION ${ver_maj})
 endif()
 
 target_compile_definitions(
