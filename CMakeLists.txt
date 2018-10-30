@@ -112,6 +112,7 @@ install(
 
 install(
   EXPORT <PKG>Targets
+  NAMESPACE <PKG>::
   DESTINATION lib/cmake/<PKG>
   COMPONENT dev)
 

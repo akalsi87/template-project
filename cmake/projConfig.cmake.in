@@ -22,7 +22,7 @@ endif()
 set(<PKGUPPER>_LIBRARIES <PKG>)
 set(<PKGUPPER>_EXECUTABLE )
 
-get_target_property(_tgt_type <PKG> TYPE)
+get_target_property(_tgt_type <PKG>::<PKG> TYPE)
 string(COMPARE EQUAL "${_tgt_type}" "STATIC_LIBRARY" _is_static_lib)
 if (_is_static_lib)
   # include dependencies; static libs are linked to their deps publicly
