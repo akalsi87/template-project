@@ -1,3 +1,0 @@
-/*! suites.h */
-
-runSuite(exports);

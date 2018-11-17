@@ -1,5 +1,7 @@
 # proj-helpers.cmake
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 macro(msg m)
   message("## [${PROJECT_NAME}] ${m}")
 endmacro(msg)

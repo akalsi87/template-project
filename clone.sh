@@ -46,7 +46,7 @@ cat $srcDir/src/proj/stub.c | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$pro
 # copy tests
 mkdir -p $projDir/tests/install
 cp -rf $srcDir/tests $projDir/
-cat $srcDir/tests/exports.c | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/tests/exports.c
+cat $srcDir/tests/exports.cpp | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/tests/exports.cpp
 
 # handle tests.cmake and install/CMakeLists.txt
 cat $srcDir/tests.cmake | sed "s/<PKG>/$projName/g" > $projDir/tests.cmake
