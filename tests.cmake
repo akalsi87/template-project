@@ -12,7 +12,7 @@ add_executable(tests.exec ${tst_files})
 
 target_include_directories(
   tests.exec
-  PRIVATE ${PROJECT_SOURCE_DIR}/export)
+  PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
 target_link_libraries(tests.exec <PKG>)
 

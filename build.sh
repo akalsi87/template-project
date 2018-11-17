@@ -14,7 +14,7 @@ else
 fi
 
 if [ -z "$CMAKE_BUILD_TYPE" ]; then
-    build=RelWithDebInfo
+    build=Debug
 else
     build="$CMAKE_BUILD_TYPE"
 fi

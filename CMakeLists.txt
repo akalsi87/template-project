@@ -28,8 +28,8 @@ set(PROJECT_VERSION ${ver_string})
 
 file(GLOB_RECURSE
      export_hdr
-     ${PROJECT_SOURCE_DIR}/export/*.h
-     ${PROJECT_SOURCE_DIR}/export/*.hpp)
+     ${PROJECT_SOURCE_DIR}/include/*.h
+     ${PROJECT_SOURCE_DIR}/include/*.hpp)
 
 file(GLOB_RECURSE
      src_files
@@ -102,7 +102,7 @@ install(
   INCLUDES DESTINATION include)
 
 install(
-  DIRECTORY export/
+  DIRECTORY include/
   DESTINATION include)
 
 install(
@@ -128,7 +128,7 @@ include(tests.cmake)
 ## Packaging (disabled)
 
 # set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
-# set(CPACK_PACKAGE_VENDOR "Aaditya Kalsi")
-# set(CPACK_PACKAGE_CONTACT "akalsi.dev@gmail.com")
+# set(CPACK_PACKAGE_VENDOR "<OWNER>")
+# set(CPACK_PACKAGE_CONTACT "<EMAIL>")
 # set(CPACK_STRIP_FILES 1)
 # include(CPack)

@@ -13,24 +13,19 @@ filename=`basename $file`
 
 fileabs=`readlink -f $file`
 filedir=$(basename $(dirname "$fileabs"))/"$filename"
-test_name=`echo $filename | tr '[:upper:]' '[:lower:]' | sed 's/\./_/g' | sed 's/\//_/g'`
+test_name=`echo $filename | tr '[:upper:]' '[:lower:]' | cut -d'.' -f1`
 
 IFS=''
 read -d'' -r content << EOM
 /*! $filename */
 
-#include "defs.h"
+#include "doctest.h"
 
-setupSuite($test_name)
+TEST_CASE("${test_name}: basic")
 {
-    /* addTest(foo); */
+    CHECK_EQ(0, 0);
 }
 
 EOM
 
 printf "$content" > $file
-
-base_exe=`readlink -f $0`
-base_dir=`dirname $base_exe`
-
-echo "runSuite($test_name);" >> "$base_dir/tests/suites.h"

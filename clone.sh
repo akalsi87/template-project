@@ -20,12 +20,11 @@ projName=`basename $projDir`
 projNameUpper=`echo $projName | tr [a-z] [A-Z]`
 
 # handle CMakeLists.txt
-cat $srcDir/CMakeLists.txt | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/CMakeLists.txt
+cat $srcDir/CMakeLists.txt | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" | sed "s/<OWNER>/`git config --global user.name`/g" | sed "s/<EMAIL>/`git config --global user.email`/g" > $projDir/CMakeLists.txt
 
 # handle export header
-mkdir -p $projDir/export/$projName
 mkdir -p $projDir/include/$projName
-cat $srcDir/export/proj/exports.h | sed "s/<PKG>/$projNameUpper/g" > $projDir/export/$projName/exports.h
+cat $srcDir/include/proj/exports.h | sed "s/<PKG>/$projNameUpper/g" > $projDir/include/$projName/exports.h
 
 # handle cmake/projConfig.cmake.in
 mkdir -p $projDir/cmake
@@ -53,7 +52,7 @@ cat $srcDir/tests.cmake | sed "s/<PKG>/$projName/g" > $projDir/tests.cmake
 cat $srcDir/tests/install/CMakeLists.txt | sed "s/<PKG>/$projName/g" > $projDir/tests/install/CMakeLists.txt
 
 # copy LICENSE
-cat $srcDir/LICENSE | sed "s/<YEAR>/`date +%Y`/g" > $projDir/LICENSE
+cat $srcDir/LICENSE | sed "s/<YEAR>/`date +%Y`/g" | sed "s/<OWNER>/`git config --global user.name`/g" | sed "s/<EMAIL>/`git config --global user.email`/g" > $projDir/LICENSE
 
 # create .gitignore
 cat <<EOF > $projDir/.gitignore
