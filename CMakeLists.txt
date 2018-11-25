@@ -74,8 +74,7 @@ target_compile_definitions(
 ## Set include directories
 target_include_directories(
   <PKG>
-  PRIVATE include
-  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/export>
+  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
          $<INSTALL_INTERFACE:include>)
 
 ## Dependency link
