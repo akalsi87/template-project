@@ -16,9 +16,9 @@
 #  endif
 #else
 #  ifdef BUILDING_<PKG>_SHARED
-#    define <PKG>_API __attribute__ ((visibility ("default")))
+#    define <PKG>_API __attribute__((visibility ("default")))
 #  else
-#    define <PKG>_API 
+#    define <PKG>_API
 #  endif
 #endif
 
@@ -29,5 +29,7 @@
 #  define <PKG>_EXTERN_C
 #  define <PKG>_C_API <PKG>_API
 #endif
+
+<PKG>_EXTERN_C <PKG>_C_API const char <PKG>_VERSION[];
 
 #endif/*_<PKG>_EXPORTS_H_*/

@@ -38,9 +38,9 @@ cp $srcDir/cmake/proj-helpers.cmake $projDir/cmake
 # handle build.sh, clean.sh, tests-install.sh
 cp $srcDir/build.sh $srcDir/clean.sh $srcDir/tests-install.sh $projDir
 
-# copy stub.c
+# copy version.c
 mkdir -p $projDir/src/$projName
-cat $srcDir/src/proj/stub.c | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/src/$projName/stub.c
+cat $srcDir/src/proj/version.c | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/src/$projName/version.c
 
 # copy tests
 mkdir -p $projDir/tests/install

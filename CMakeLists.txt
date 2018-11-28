@@ -69,7 +69,7 @@ target_compile_definitions(
     <PKGUPPER>_VER_MAJ=${ver_maj}
     <PKGUPPER>_VER_MIN=${ver_min}
     <PKGUPPER>_VER_PATCH=${ver_patch}
-    <PKGUPPER>_VER_STRING=${ver_string})
+    <PKGUPPER>_VER_STRING=\"${ver_string}\")
 
 ## Set include directories
 target_include_directories(
