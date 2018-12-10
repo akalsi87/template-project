@@ -30,6 +30,6 @@
 #  define <PKG>_C_API <PKG>_API
 #endif
 
-<PKG>_EXTERN_C <PKG>_C_API const char <PKG>_VERSION[];
+PKG>_C_API const char <PKG>_VERSION[];
 
 #endif/*_<PKG>_EXPORTS_H_*/
