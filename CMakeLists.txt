@@ -26,6 +26,11 @@ set(PROJECT_VERSION ${ver_string})
 
 ## Setup sources
 
+configure_file(
+  ${PROJECT_SOURCE_DIR}/include/<PKG>/exports.h.in
+  ${PROJECT_SOURCE_DIR}/include/<PKG>/exports.h
+  @ONLY)
+
 file(GLOB_RECURSE
      export_hdr
      ${PROJECT_SOURCE_DIR}/include/*.h

@@ -1,7 +1,7 @@
 /*! exports.h */
 
-#ifndef _<PKG>_EXPORTS_H_
-#define _<PKG>_EXPORTS_H_
+#ifndef <PKG>_EXPORTS_H
+#define <PKG>_EXPORTS_H
 
 #if defined(USE_<PKG>_STATIC)
 #  define <PKG>_API
@@ -11,12 +11,9 @@
 #  else
 #    define <PKG>_API __declspec(dllimport)
 #  endif
-#  ifndef _CRT_SECURE_NO_WARNINGS
-#    define _CRT_SECURE_NO_WARNINGS
-#  endif
 #else
 #  ifdef BUILDING_<PKG>_SHARED
-#    define <PKG>_API __attribute__((visibility ("default")))
+#    define <PKG>_API __attribute__((visibility("default")))
 #  else
 #    define <PKG>_API
 #  endif
@@ -24,12 +21,16 @@
 
 #if defined(__cplusplus)
 #  define <PKG>_EXTERN_C extern "C"
-#  define <PKG>_C_API <PKG>_EXTERN_C <PKG>_API
 #else
-#  define <PKG>_EXTERN_C
-#  define <PKG>_C_API <PKG>_API
+#  define <PKG>_EXTERN_C extern
 #endif
 
-PKG>_C_API const char <PKG>_VERSION[];
+#define <PKG>_C_API <PKG>_EXTERN_C <PKG>_API
 
-#endif/*_<PKG>_EXPORTS_H_*/
+#define <PKG>_MAJOR_VER @ver_maj@
+#define <PKG>_MINOR_VER @ver_min@
+#define <PKG>_PATCH_VER @ver_patch@
+
+<PKG>_C_API const char* <PKG>_VERSION;
+
+#endif/*<PKG>_EXPORTS_H*/

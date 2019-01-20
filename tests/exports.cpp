@@ -2,10 +2,13 @@
 
 #include "<PKG>/exports.h"
 
-#ifdef <PKGUPPER>_C_API
-#  define VER_DEF_FOUND 1
+#if defined(<PKGUPPER>_C_API) &&     \
+    defined(<PKGUPPER>_MAJOR_VER) && \
+    defined(<PKGUPPER>_MINOR_VER) && \
+    defined(<PKGUPPER>_PATCH_VER)
+#  define VER_DEFS_FOUND 1
 #else
-#  define VER_DEF_FOUND 0
+#  define VER_DEFS_FOUND 0
 #endif
 
 #include "doctest.h"
@@ -14,7 +17,7 @@
 
 TEST_CASE("export-macro-defined")
 {
-    CHECK_EQ(VER_DEF_FOUND, 1);
+    CHECK_EQ(VER_DEFS_FOUND, 1);
 }
 
 TEST_CASE("export-version-defined")
