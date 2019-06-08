@@ -8,7 +8,8 @@ message("-- Build dir : ${CMAKE_BINARY_DIR}")
 
 find_package(<PKG> CONFIG REQUIRED)
 
-file(GLOB src_files ${TESTS_DIR}/*.c ${TESTS_DIR}/*.cpp)
+file(GLOB_RECURSE src_files ${TESTS_DIR}/*.c ${TESTS_DIR}/*.cpp)
+list(FILTER src_files EXCLUDE REGEX ".*/_build/.*")
 
 add_executable(tests_install ${src_files})
 
