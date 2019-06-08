@@ -62,6 +62,11 @@ _install/
 tests/install/_source/
 tests/install/_build/
 tests/install/testLog.txt
+
+# IDEs
+.idea/
+cmake-build-*
+include/$projName/exports.h
 EOF
 
 # copy convenience scripts
