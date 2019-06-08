@@ -2,3 +2,6 @@ _build
 _install
 tests/install/_source
 tests/install/testLog.txt
+.idea/
+cmake-build-*
+include/*/exports.h
