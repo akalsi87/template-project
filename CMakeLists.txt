@@ -107,7 +107,8 @@ install(
 
 install(
   DIRECTORY include/
-  DESTINATION include)
+  DESTINATION include,
+  FILES_MATCHING REGEX ".*\\.h[p]*")
 
 install(
   FILES ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/<PKG>Config.cmake
