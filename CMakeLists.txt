@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.0)
 
 project(<PKG>)
 
+include(GNUInstallDirs)
 include(cmake/vcpkg-toolchain.cmake)
 include(cmake/proj-helpers.cmake)
 
@@ -87,22 +88,22 @@ target_link_libraries(<PKG> )
 
 ## Setup library config for import
 configure_file(
-  cmake/<PKG>Config.cmake.in
-  ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/<PKG>Config.cmake @ONLY)
+  cmake/<PKG>-config.cmake.in
+  ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/<PKG>-config.cmake @ONLY)
 
 export(
   TARGETS <PKG>
-  FILE ${PROJECT_BINARY_DIR}/<PKG>Targets.cmake)
+  FILE ${PROJECT_BINARY_DIR}/<PKG>-targets.cmake)
 
 export(PACKAGE <PKG>)
 
 ## Install configs
 install(
   TARGETS <PKG>
-  EXPORT <PKG>Targets
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
+  EXPORT <PKG>-targets
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   INCLUDES DESTINATION include)
 
 install(
@@ -111,14 +112,14 @@ install(
   FILES_MATCHING REGEX ".*\\.h[px]*$")
 
 install(
-  FILES ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/<PKG>Config.cmake
-  DESTINATION lib/cmake/<PKG>
+  FILES ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/<PKG>-config.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/<PKG>
   COMPONENT dev)
 
 install(
-  EXPORT <PKG>Targets
+  EXPORT <PKG>-targets
   NAMESPACE <PKG>::
-  DESTINATION lib/cmake/<PKG>
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/<PKG>
   COMPONENT dev)
 
 install(

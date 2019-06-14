@@ -26,10 +26,10 @@ cat $srcDir/CMakeLists.txt | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$proj
 mkdir -p $projDir/include/$projName
 cat $srcDir/include/proj/exports.h.in | sed "s/<PKG>/$projNameUpper/g" > $projDir/include/$projName/exports.h.in
 
-# handle cmake/projConfig.cmake.in
+# handle cmake/proj-config.cmake.in
 mkdir -p $projDir/cmake
-cmakeConfig="$projDir/cmake/$projName"Config.cmake.in
-cat $srcDir/cmake/projConfig.cmake.in | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $cmakeConfig
+cmakeConfig="$projDir/cmake/$projName"-config.cmake.in
+cat $srcDir/cmake/proj-config.cmake.in | sed "s/<PKG>/$projName/g" | sed "s/<PKGUPPER>/$projNameUpper/g" > $cmakeConfig
 
 # copy cmake/vcpkg-toolchain.cmake
 cp $srcDir/cmake/vcpkg-toolchain.cmake $projDir/cmake
