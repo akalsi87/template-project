@@ -4,7 +4,6 @@ cmake_minimum_required(VERSION 3.0)
 
 project(<PKG>)
 
-include(GNUInstallDirs)
 include(cmake/vcpkg-toolchain.cmake)
 include(cmake/proj-helpers.cmake)
 
@@ -98,6 +97,7 @@ export(
 export(PACKAGE <PKG>)
 
 ## Install configs
+include(GNUInstallDirs)
 install(
   TARGETS <PKG>
   EXPORT <PKG>-targets
