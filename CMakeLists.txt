@@ -2,16 +2,22 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-project(<PKG>)
-
-include(cmake/vcpkg-toolchain.cmake)
-include(cmake/proj-helpers.cmake)
-
 ## Library version
 set(ver_maj 0)
 set(ver_min 1)
 set(ver_patch 0)
 set(ver_string ${ver_maj}.${ver_min}.${ver_patch})
+
+## Project
+project(
+  <PKG>
+  VERSION ${ver_string}
+  DESCRIPTION "Project description"
+  HOMEPAGE_URL "http://github.com/"
+  LANGUAGES C CXX)
+
+include(cmake/vcpkg-toolchain.cmake)
+include(cmake/proj-helpers.cmake)
 
 ## Symbol visibility
 if (BUILD_SHARED_LIBS)
@@ -21,8 +27,6 @@ endif()
 
 ## Set the CMake C++ compiler standard
 # set(CMAKE_CXX_STANDARD 11)
-
-set(PROJECT_VERSION ${ver_string})
 
 ## Setup sources
 
@@ -34,12 +38,14 @@ configure_file(
 file(GLOB_RECURSE
      export_hdr
      ${PROJECT_SOURCE_DIR}/include/*.h
-     ${PROJECT_SOURCE_DIR}/include/*.hpp)
+     ${PROJECT_SOURCE_DIR}/include/*.hpp
+     ${PROJECT_SOURCE_DIR}/include/*.hxx)
 
 file(GLOB_RECURSE
      src_files
      ${PROJECT_SOURCE_DIR}/src/*.c
-     ${PROJECT_SOURCE_DIR}/src/*.cpp)
+     ${PROJECT_SOURCE_DIR}/src/*.cpp
+     ${PROJECT_SOURCE_DIR}/src/*.cxx)
 
 print_list("Project root:" "${PROJECT_SOURCE_DIR}")
 print_list("Export headers:" ${export_hdr})
@@ -79,8 +85,11 @@ target_compile_definitions(
 ## Set include directories
 target_include_directories(
   <PKG>
-  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-         $<INSTALL_INTERFACE:include>)
+  PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+  PRIVATE
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>)
 
 ## Dependency link
 target_link_libraries(<PKG> )
@@ -90,13 +99,13 @@ configure_file(
   cmake/<PKG>-config.cmake.in
   ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/<PKG>-config.cmake @ONLY)
 
+## Install configs
 export(
   TARGETS <PKG>
   FILE ${PROJECT_BINARY_DIR}/<PKG>-targets.cmake)
 
 export(PACKAGE <PKG>)
 
-## Install configs
 include(GNUInstallDirs)
 install(
   TARGETS <PKG>
@@ -129,7 +138,32 @@ install(
 
 ## Tests
 
-include(tests.cmake)
+set(test_dir ${PROJECT_SOURCE_DIR}/tests)
+
+file(GLOB_RECURSE
+     tst_files
+     ${test_dir}/*.c
+     ${test_dir}/*.cpp
+     ${test_dir}/*.cxx)
+
+list(FILTER tst_files EXCLUDE REGEX ".*/_build/.*")
+
+print_list("Test files:" ${tst_files})
+
+add_executable(tests.exec ${tst_files})
+
+target_include_directories(
+  tests.exec
+  PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
+    ${test_dir})
+
+target_link_libraries(tests.exec <PKG>)
+
+add_custom_target(
+  tests
+  DEPENDS tests.exec
+  COMMAND $<TARGET_FILE:tests.exec>)
 
 ## Packaging (disabled)
 

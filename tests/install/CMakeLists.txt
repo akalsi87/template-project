@@ -21,5 +21,7 @@ target_link_libraries(tests_install <PKG>::<PKG>)
 
 add_custom_target(
   tests_run
-  COMMAND env PATH="${CMAKE_INSTALL_PREFIX}/bin" $<TARGET_FILE:tests_install>
-  DEPENDS tests_install)
+  COMMAND
+    env PATH="${CMAKE_INSTALL_PREFIX}/bin:$ENV{PATH}" $<TARGET_FILE:tests_install>
+  DEPENDS
+    tests_install)

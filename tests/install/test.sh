@@ -24,8 +24,16 @@ cd $currdir
 mkdir -p _build
 cd _build
 
-cmake -DCMAKE_INSTALL_PREFIX=$root/_install -DTESTS_DIR=$root/tests "$gen_arg" $bld_arg ..
-env VERBOSE=1 cmake --build . --target tests_run --config $CMAKE_BUILD_TYPE > ../testLog.txt
+cmake \
+  -DCMAKE_INSTALL_PREFIX=$root/_install \
+  -DTESTS_DIR=$root/tests \
+  "$gen_arg" \
+  $bld_arg \
+  ..
+
+env VERBOSE=1 \
+  cmake --build . --target tests_run \
+        --config $CMAKE_BUILD_TYPE > ../testLog.txt || true
 
 cd ..
 rm -fr _build
