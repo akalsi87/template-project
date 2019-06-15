@@ -150,20 +150,20 @@ list(FILTER tst_files EXCLUDE REGEX ".*/_build/.*")
 
 print_list("Test files:" ${tst_files})
 
-add_executable(tests.exec ${tst_files})
+add_executable(<PKG>-tests ${tst_files})
 
 target_include_directories(
-  tests.exec
+  <PKG>-tests
   PRIVATE
     ${PROJECT_SOURCE_DIR}/include
     ${test_dir})
 
-target_link_libraries(tests.exec <PKG>)
+target_link_libraries(<PKG>-tests <PKG>)
 
 add_custom_target(
   tests
-  DEPENDS tests.exec
-  COMMAND $<TARGET_FILE:tests.exec>)
+  DEPENDS <PKG>-tests
+  COMMAND $<TARGET_FILE:<PKG>-tests>)
 
 ## Packaging (disabled)
 
