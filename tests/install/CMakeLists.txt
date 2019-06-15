@@ -19,9 +19,15 @@ target_include_directories(
 
 target_link_libraries(tests_install <PKG>::<PKG>)
 
+if(WIN32)
+  set(run_path ${CMAKE_INSTALL_PREFIX}/bin)
+else()
+  set(run_path ${CMAKE_INSTALL_PREFIX})
+endif()
+
 add_custom_target(
   tests_run
   COMMAND
-    env PATH="${CMAKE_INSTALL_PREFIX}/bin:$ENV{PATH}" $<TARGET_FILE:tests_install>
+    ${CMAKE_COMMAND} -E chdir ${run_path} $<TARGET_FILE:tests_install>
   DEPENDS
     tests_install)
