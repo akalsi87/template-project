@@ -26,41 +26,37 @@ cat $srcDir/CMakeLists.txt | \
   sed "s/<OWNER>/`git config --global user.name`/g" | \
   sed "s/<EMAIL>/`git config --global user.email`/g" > $projDir/CMakeLists.txt
 
-# handle export header
-mkdir -p $projDir/include/$projName
-cat $srcDir/include/proj/exports.h.in | \
-  sed "s/<PKG>/$projNameUpper/g" > $projDir/include/$projName/exports.h.in
-
-# handle cmake/proj-config.cmake.in
+# copy cmake helpers
 mkdir -p $projDir/cmake
-cmakeConfig="$projDir/cmake/$projName"-config.cmake.in
-cat $srcDir/cmake/proj-config.cmake.in | \
-  sed "s/<PKG>/$projName/g" | \
-  sed "s/<PKGUPPER>/$projNameUpper/g" > $cmakeConfig
-
-# copy cmake/vcpkg-toolchain.cmake
 cp $srcDir/cmake/vcpkg-toolchain.cmake $projDir/cmake
 cp $srcDir/cmake/proj-helpers.cmake $projDir/cmake
 
-# handle build.sh, clean.sh, tests-install.sh
-cp $srcDir/build.sh $srcDir/clean.sh $srcDir/tests-install.sh $projDir
+# handle build.sh, clean.sh
+cp $srcDir/build.sh $srcDir/clean.sh $projDir
 
-# copy exports.c
+# copy version.c/h
 mkdir -p $projDir/src/$projName
-cat $srcDir/src/proj/exports.c | \
+mkdir -p $projDir/include/$projName
+cat $srcDir/src/proj/version.c | \
   sed "s/<PKG>/$projName/g" | \
-  sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/src/$projName/exports.c
+  sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/src/$projName/version.c
+cat $srcDir/include/proj/version.h | \
+  sed "s/<PKG>/$projName/g" | \
+  sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/include/$projName/version.h
+
+# copy main.c
+mkdir -p $projDir/src/${projName}exec
+cat $srcDir/src/projexec/main.c | \
+  sed "s/<PKG>/$projName/g" | \
+  sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/src/${projName}exec/main.c
 
 # copy tests
-mkdir -p $projDir/tests/install
 cp -rf $srcDir/tests $projDir/
-cat $srcDir/tests/exports.cpp | \
+rm -fr $projDir/tests/proj
+mkdir -p $projDir/tests/$projName
+cat $srcDir/tests/proj/version.cxx | \
   sed "s/<PKG>/$projName/g" | \
-  sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/tests/exports.cpp
-
-# handle install/CMakeLists.txt
-cat $srcDir/tests/install/CMakeLists.txt | \
-  sed "s/<PKG>/$projName/g" > $projDir/tests/install/CMakeLists.txt
+  sed "s/<PKGUPPER>/$projNameUpper/g" > $projDir/tests/$projName/version.cxx
 
 # copy LICENSE
 cat $srcDir/LICENSE | \
@@ -73,7 +69,6 @@ cat <<EOF > $projDir/.gitignore
 # .gitignore
 _build/
 _install/
-include/$projName/exports.h.in
 tests/install/_source/
 tests/install/_build/
 tests/install/testLog.txt

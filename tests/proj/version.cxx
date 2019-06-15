@@ -1,6 +1,6 @@
-/*! exports.cpp */
+/*! version.cxx */
 
-#include "<PKG>/exports.h"
+#include "<PKG>/version.h"
 
 #if defined(<PKGUPPER>_C_API) &&     \
     defined(<PKGUPPER>_MAJOR_VER) && \
