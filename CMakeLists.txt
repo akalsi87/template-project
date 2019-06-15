@@ -52,7 +52,7 @@ print_list("Export headers:" ${export_hdr})
 print_list("Source files:" ${src_files})
 
 ## Add library
-add_library(<PKG> ${src_files})
+add_library(<PKG> ${src_files} ${export_hdr})
 
 ## Set compiler definitions
 if (BUILD_SHARED_LIBS)

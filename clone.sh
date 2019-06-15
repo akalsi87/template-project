@@ -73,6 +73,7 @@ cat <<EOF > $projDir/.gitignore
 # .gitignore
 _build/
 _install/
+include/$projName/exports.h.in
 tests/install/_source/
 tests/install/_build/
 tests/install/testLog.txt
