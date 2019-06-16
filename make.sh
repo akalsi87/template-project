@@ -21,7 +21,7 @@ make.sh TARGET
         [-h|--help]
 
 Runs the CMake project in the current directory of the script.
-  o TARGET can be (tests, install, install-test, clean)
+  o TARGET can be (tests, install, install-tests, clean)
     All libraries and executables are built (unless TARGET is 'clean')
   o PREFIX is the installation directory
     Default: _install
@@ -85,7 +85,7 @@ run_cmake() {
                         --config "$build_type"
 }
 
-install_test() {
+install_tests() {
     run_cmake install
     mkdir -p $root/tmp
     trap clear_tmp EXIT
@@ -156,8 +156,8 @@ if [[ "$target" == "clean" ]]; then
     exit 0
 fi
 
-if [[ "$target" == "install-test" ]]; then
-    install_test
+if [[ "$target" == "install-tests" ]]; then
+    install_tests
     exit 0
 fi
 

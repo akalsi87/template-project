@@ -213,8 +213,11 @@ function(cm_add_library)
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
     COMPONENT dev)
 
-  set(_targets "${_targets};${_NAME}" CACHE STRING "Targets" FORCE)
-  set(_libs "${_libs};${_NAME}" CACHE STRING "Libs" FORCE)
+  list (FIND _targets ${_NAME} _index)
+  if (${_index} EQUAL -1)
+    set(_targets "${_targets};${_NAME}" CACHE STRING "Targets" FORCE)
+    set(_libs "${_libs};${_NAME}" CACHE STRING "Libs" FORCE)
+  endif()
 endfunction(cm_add_library)
 
 # cm_add_executable(NAME <name>
@@ -295,7 +298,10 @@ function(cm_add_executable)
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
     COMPONENT dev)
 
-  set(_targets "${_targets};${_NAME}" CACHE STRING "Targets" FORCE)
+  list (FIND _targets ${_NAME} _index)
+  if (${_index} EQUAL -1)
+    set(_targets "${_targets};${_NAME}" CACHE STRING "Targets" FORCE)
+  endif()
   # force build when building tests
   add_dependencies(tests ${_NAME})
 endfunction(cm_add_executable)
