@@ -83,7 +83,7 @@ print_namespace_begin() {
     if [[ "$lang" == C ]]; then
         return
     fi
-    list=$(echo "$comp_path" | \
+    list=$(dirname "$comp_path" | \
       sed 's|\.| |g' | \
       sed 's|\/| |g' | \
       sed 's|\\| |g')
@@ -97,7 +97,7 @@ print_namespace_end() {
     if [[ "$lang" == C ]]; then
         return
     fi
-    list=$(echo "$comp_path" | \
+    list=$(dirname "$comp_path" | \
       sed 's|\.| |g' | \
       sed 's|\/| |g' | \
       sed 's|\\| |g')
