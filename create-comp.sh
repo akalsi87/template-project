@@ -10,7 +10,7 @@ lang=CXX
 
 function usage() {
     cat <<EOF
-create-comp.sh --path=PATH [--lang=LANG] [-h|--help]
+create-comp.sh PATH [--lang=LANG] [-h|--help]
 
 Creates a C/C++ component
   o PATH is the components hierarchy, e.g. foo/bar
@@ -26,6 +26,9 @@ EOF
     exit 0
 }
 
+comp_path=$1
+shift
+
 while [ "$1" != "" ]; do
     PARAM=`echo $1 | cut -d'=' -f1`
     VALUE=`echo $1 | cut -d'=' -f2`
@@ -33,9 +36,6 @@ while [ "$1" != "" ]; do
         -h|--help)
             usage
             exit 0
-            ;;
-        --path)
-            comp_path=$VALUE
             ;;
         --lang)
             lang=$VALUE
