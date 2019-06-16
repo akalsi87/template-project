@@ -95,7 +95,8 @@ function(cm_add_library)
 
   ## Add export header
   set(xprt_hdr ${CMAKE_BINARY_DIR}/include/${_NAME}/exports.h)
-  file(WRITE ${xprt_hdr} "/*! exports.h */
+  if (NOT EXISTS ${xprt_hdr})
+    file(WRITE ${xprt_hdr} "/*! exports.h */
 
 #ifndef ${_UNAME}_EXPORTS_H
 #define ${_UNAME}_EXPORTS_H
@@ -130,6 +131,7 @@ function(cm_add_library)
 
 #endif/*${_UNAME}_EXPORTS_H*/
 ")
+  endif()
 
   ## Add the library
   add_library(${_NAME} ${_FILES} ${xprt_hdr})
