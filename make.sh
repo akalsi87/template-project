@@ -4,6 +4,7 @@ dirnm=`dirname $0`
 filnm=`basename $0`
 exec=`cd $dirnm && pwd`/$filnm
 root=`dirname $exec`
+libs=''
 
 build_type="Debug"
 prefix="$root/_install"
@@ -70,6 +71,10 @@ set -e
 
 clear_tmp() {
     rm -fr $root/tmp
+    for lib in "$libs"; do
+        rm ${prefix}/bin/${lib}_test
+    done
+    rmdir ${prefix}/bin || true
 }
 
 run_cmake() {
@@ -111,13 +116,14 @@ install_tests() {
 
 cmake_minimum_required(VERSION 3.0)
 
-set(CMAKE_PREFIX_PATH $root/_install)
+set(CMAKE_PREFIX_PATH $prefix)
+set(CMAKE_INSTALL_PREFIX $prefix)
+
+include(../cmake/proj-helpers.cmake)
 
 find_package($proj CONFIG REQUIRED)
 
-add_custom_target(
-  tests
-  COMMAND \${CMAKE_COMMAND} -E echo "ALL TESTS PASSED")
+set(CMAKE_CXX_STANDARD 11)
 
 include_directories($root/tmp/tests)
 
@@ -133,20 +139,24 @@ add_executable(${lib}_test \${${lib}_src} tests/tmain.cxx)
 
 target_link_libraries(${lib}_test ${proj}::${lib})
 
-add_custom_target(
-  ${lib}_test_run
-  DEPENDS ${lib}_test
-  COMMAND $<TARGET_FILE:${lib}_test>)
-
-add_dependencies(tests ${lib}_test_run)
+install(
+  TARGETS ${lib}_test
+  RUNTIME DESTINATION bin)
 
 EOF
     done
 
     export VERBOSE=1
 
-    cmake -S . -B _build
-    cmake --build _build --target tests
+    cmake -H. -B_build
+    cmake --build _build --target install
+
+    for lib in "$libs"; do
+        if ! sh -c "cd $prefix/bin && ./${lib}_test"; then
+            >&2 echo "Failed install test for ${lib}"
+            exit 1
+        fi
+    done
 
     echo "-------- INSTALL TEST COMPLETE --------"
 }
