@@ -70,11 +70,14 @@ done
 set -e
 
 clear_tmp() {
-    rm -fr $root/tmp
+    cd $root
     for lib in "$libs"; do
-        rm ${prefix}/bin/${lib}_test
+        rm -f ${prefix}/bin/${lib}_test || true
+        rm -f ${prefix}/bin/${lib}_test.exe || true
     done
     rmdir ${prefix}/bin || true
+    rm -fr $root/tmp/* || true
+    rm -fr $root/tmp || true
 }
 
 run_cmake() {
@@ -148,7 +151,7 @@ EOF
 
     export VERBOSE=1
 
-    cmake -H. -B_build
+    sh -c "cmake -H. -B_build ${gen_arg} -DCMAKE_BUILD_TYPE=${build_type}"
     cmake --build _build --target install
 
     for lib in "$libs"; do
