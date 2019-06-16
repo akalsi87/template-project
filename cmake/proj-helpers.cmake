@@ -386,11 +386,10 @@ function(cm_config_install_exports)
   foreach(dep ${_find_pkg_names})
     set(fp_args ${_find_pkg_args_${dep}})
     string(REPLACE ";" " " fp_args "${fp_args}")
-    file(APPEND ${pkg_cfg} "find_package(${fp_args})")
+    file(APPEND ${pkg_cfg} "find_package(${fp_args})\n")
   endforeach()
 
   file(APPEND ${pkg_cfg} "
-
 if (${PROJUPPER}_CMAKE_DIR)
   # already imported
   return()
