@@ -45,7 +45,7 @@ function(lsprn hd)
     set(_f "${f}")
     string(REPLACE "${PROJECT_SOURCE_DIR}/" "" "_f" "${_f}")
     msg("${spc}${_f}")
-    set(spc "  ")
+    set(spc "    ")
   endforeach()
 endfunction()
 
@@ -85,8 +85,8 @@ function(cm_add_library)
        ${PROJECT_SOURCE_DIR}/src/${_NAME}/*.cxx)
 
   msg("${_NAME} (library)")
-  lsprn("Export headers:" ${export_hdr})
-  lsprn("Source files:  " ${src_files})
+  lsprn("  Export headers:" ${export_hdr})
+  lsprn("  Source files:" ${src_files})
   set(_FILES ${src_files} ${export_hdr})
 
   list(GET ver_list 0 ver_maj)
@@ -166,7 +166,8 @@ function(cm_add_library)
     if (MSVC)
       target_compile_options(${_NAME} PRIVATE /W3 /WX)
     else()
-      target_compile_options(${_NAME} PRIVATE -Wall -Werror -Wno-unused-function)
+      target_compile_options(
+        ${_NAME} PRIVATE -Wall -Werror -Wno-unused-function)
     endif()
   endif()
 
@@ -242,7 +243,7 @@ function(cm_add_executable)
        ${PROJECT_SOURCE_DIR}/src/${_NAME}/*.cxx)
 
   msg("${_NAME} (executable)")
-  lsprn("Source files:  " ${src_files})
+  lsprn("  Source files:" ${src_files})
   set(_FILES ${src_files})
 
   ## Add the executable
@@ -260,7 +261,8 @@ function(cm_add_executable)
     if (MSVC)
       target_compile_options(${_NAME} PRIVATE /W3 /WX)
     else()
-      target_compile_options(${_NAME} PRIVATE -Wall -Werror -Wno-unused-function)
+      target_compile_options(
+        ${_NAME} PRIVATE -Wall -Werror -Wno-unused-function)
     endif()
   endif()
 
@@ -292,6 +294,8 @@ function(cm_add_executable)
     COMPONENT dev)
 
   set(_targets "${_targets};${_NAME}" CACHE STRING "Targets" FORCE)
+  # force build when building tests
+  add_dependencies(tests ${_NAME})
 endfunction(cm_add_executable)
 
 # cm_add_tests(NAME <name> [DISABLE_WARNINGS])
@@ -314,10 +318,10 @@ function(cm_add_tests)
        ${test_dir}/${_NAME}/*.cxx)
 
   msg("${_NAME} (test)")
-  lsprn("Source files:  " ${tst_files})
+  lsprn("  Source files:" ${tst_files})
   set(_FILES ${tst_files})
 
-  add_executable(${_NAME}-lib-tests ${_FILES} ${test_dir}/tmain.cpp)
+  add_executable(${_NAME}-lib-tests ${_FILES} ${test_dir}/tmain.cxx)
 
   target_include_directories(
     ${_NAME}-lib-tests
@@ -393,23 +397,17 @@ set(${PROJUPPER}_INCLUDE_DIRS include)
 # Our library dependencies (contains definitions for IMPORTED targets)
 ")
 
-  msg("Targets: ${_targets}")
   foreach(tgt ${_targets})
     file(APPEND ${pkg_cfg}
          "include(\${${PROJUPPER}_CMAKE_DIR}/${tgt}-targets.cmake)\n")
+    file(APPEND ${pkg_cfg}
+         "message(\"-- Imported target ${PROJ}::${tgt}\")\n")
   endforeach()
 
   string(REPLACE ";" " " all_libs "${_libs}")
   file(APPEND ${pkg_cfg} "
 # These are IMPORTED targets created by ${PROJ}-targets.cmake
 set(${PROJUPPER}_LIBRARIES ${all_libs})
-
-# get_target_property(_tgt_type ${PROJ}::${PROJ} TYPE)
-# string(COMPARE EQUAL \"${_tgt_type}\" \"STATIC_LIBRARY\" _is_static_lib)
-# if (_is_static_lib)
-#   # include dependencies; static libs are linked to their deps publicly
-# endif()
-
 ")
 
   configure_file(

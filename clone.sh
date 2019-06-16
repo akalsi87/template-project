@@ -31,8 +31,8 @@ mkdir -p $projDir/cmake
 cp $srcDir/cmake/vcpkg-toolchain.cmake $projDir/cmake
 cp $srcDir/cmake/proj-helpers.cmake $projDir/cmake
 
-# handle build.sh, clean.sh
-cp $srcDir/build.sh $srcDir/clean.sh $projDir
+# handle make.sh
+cp $srcDir/make.sh $projDir
 
 # copy version.c/h
 mkdir -p $projDir/src/$projName
@@ -69,15 +69,11 @@ cat <<EOF > $projDir/.gitignore
 # .gitignore
 _build/
 _install/
-tests/install/_source/
-tests/install/_build/
-tests/install/testLog.txt
 
 # IDEs
 .idea/
 cmake-build-*
-include/$projName/exports.h
 EOF
 
-# copy convenience scripts
-cp $srcDir/create*.sh $projDir/
+# copy convenience script
+cp $srcDir/create-comp.sh $projDir/
