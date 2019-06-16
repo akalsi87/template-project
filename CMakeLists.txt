@@ -33,7 +33,7 @@ target_link_libraries(<PKG>exec PRIVATE <PKG>)
 ## Tests
 cm_add_tests(NAME <PKG>)
 
-## Installation
+## Config and export installation
 cm_config_install_exports()
 
 ## License
