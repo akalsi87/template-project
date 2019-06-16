@@ -107,6 +107,10 @@ print_namespace_end() {
     done
 }
 
+print_starred_license() {
+    cat "$root/LICENSE" | sed 's|^| * |g' | sed 's|[[:space:]]*$||'
+}
+
 cd $root
 
 guard=$(print_include_guard)
@@ -114,6 +118,9 @@ guard=$(print_include_guard)
 mkdir -p "include/${comp_dir}"
 cat <<EOF > "include/${comp_path}${hdr_ext}"
 /*! ${comp_name}${hdr_ext} */
+/*!
+$(print_starred_license)
+ */
 
 #ifndef $guard
 #define $guard
@@ -129,6 +136,9 @@ EOF
 mkdir -p "src/${comp_dir}"
 cat <<EOF > "src/${comp_path}${src_ext}"
 /*! ${comp_name}${src_ext} */
+/*!
+$(print_starred_license)
+ */
 
 #include <${comp_path}${hdr_ext}>
 
