@@ -22,8 +22,7 @@ make.sh TARGET
 
 Runs the CMake project in the current directory of the script.
   o TARGET can be (tests, install, install-test, clean)
-    All libraries and executables are always built
-    Default: tests
+    All libraries and executables are built (unless TARGET is 'clean')
   o PREFIX is the installation directory
     Default: _install
   o GENERATOR is the CMake generator to use

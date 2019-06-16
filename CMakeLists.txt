@@ -15,7 +15,7 @@ include(cmake/vcpkg-toolchain.cmake)
 include(cmake/proj-helpers.cmake)
 
 ## Set the CMake C++ compiler standard
-# set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
 
 ## Find dependencies
 cm_find_pkg(Threads REQUIRED)
