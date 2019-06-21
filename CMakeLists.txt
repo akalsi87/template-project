@@ -6,12 +6,9 @@ cmake_minimum_required(VERSION 3.0)
 project(
   <PKG>
   VERSION 0.1.0
-  DESCRIPTION "Project description"
-  HOMEPAGE_URL "http://github.com/"
   LANGUAGES C CXX)
 
 ## Include helper CMake modules
-include(cmake/vcpkg-toolchain.cmake)
 include(cmake/proj-helpers.cmake)
 
 ## Set the CMake C++ compiler standard
