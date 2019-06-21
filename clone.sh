@@ -28,7 +28,6 @@ cat $srcDir/CMakeLists.txt | \
 
 # copy cmake helpers
 mkdir -p $projDir/cmake
-cp $srcDir/cmake/vcpkg-toolchain.cmake $projDir/cmake
 cp $srcDir/cmake/proj-helpers.cmake $projDir/cmake
 
 # handle make.sh
