@@ -23,15 +23,14 @@ endif()
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(CMakeParseArguments)
-include(GNUInstallDirs)
 
 # Fix RPATH
 if (UNIX)
   if(APPLE)
-    set(CMAKE_INSTALL_NAME_DIR "@executable_path/../${CMAKE_INSTALL_LIBDIR}")
+    set(CMAKE_INSTALL_NAME_DIR "@executable_path/../lib")
     set(RPATH_DEF "-DCMAKE_INSTALL_NAME_DIR:STRING=${CMAKE_INSTALL_NAME_DIR}")
   else()
-    set(CMAKE_INSTALL_RPATH "\$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
+    set(CMAKE_INSTALL_RPATH "\$ORIGIN/../lib")
     set(RPATH_DEF "-DCMAKE_INSTALL_RPATH:STRING=${CMAKE_INSTALL_RPATH}")
   endif()
 else()
@@ -195,9 +194,9 @@ function(cm_add_library)
   install(
     TARGETS ${_NAME}
     EXPORT ${_NAME}-targets
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
     INCLUDES DESTINATION include)
 
   ## Install headers
@@ -214,7 +213,7 @@ function(cm_add_library)
   install(
     EXPORT ${_NAME}-targets
     NAMESPACE ${PROJECT_NAME}::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+    DESTINATION lib/cmake/${PROJECT_NAME}
     COMPONENT dev)
 
   list (FIND _targets ${_NAME} _index)
@@ -293,13 +292,13 @@ function(cm_add_executable)
   install(
     TARGETS ${_NAME}
     EXPORT ${_NAME}-targets
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+    RUNTIME DESTINATION bin)
 
   ## Install targets export
   install(
     EXPORT ${_NAME}-targets
     NAMESPACE ${PROJECT_NAME}::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+    DESTINATION lib/cmake/${PROJECT_NAME}
     COMPONENT dev)
 
   list (FIND _targets ${_NAME} _index)
@@ -429,6 +428,6 @@ set(${PROJUPPER}_LIBRARIES ${all_libs})
 
   install(
     FILES ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJ}-config.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJ}
+    DESTINATION lib/cmake/${PROJ}
     COMPONENT dev)
 endfunction(cm_config_install_exports)
