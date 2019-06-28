@@ -352,10 +352,24 @@ function(cm_add_tests)
 
   target_link_libraries(${_NAME}-lib-tests ${_NAME})
 
-  add_custom_target(
-    ${_NAME}-lib-tests-run
-    DEPENDS ${_NAME}-lib-tests
-    COMMAND $<TARGET_FILE:${_NAME}-lib-tests>)
+  if (WIN32)
+    add_custom_target(
+      ${_NAME}-lib-tests-run
+      DEPENDS ${_NAME}-lib-tests
+      COMMAND ${CMAKE_COMMAND} -E env PATH="$ENV{PATH};${CMAKE_INSTALL_PREFIX}/bin"
+              $<TARGET_FILE:${_NAME}-lib-tests>)
+  elseif(APPLE)
+    add_custom_target(
+      ${_NAME}-lib-tests-run
+      DEPENDS ${_NAME}-lib-tests
+      COMMAND ${CMAKE_COMMAND} -E env DYLD_LIBRARY_PATH=${CMAKE_INSTALL_PREFIX}/lib
+              $<TARGET_FILE:${_NAME}-lib-tests>)
+  else()
+    add_custom_target(
+      ${_NAME}-lib-tests-run
+      DEPENDS ${_NAME}-lib-tests
+      COMMAND $<TARGET_FILE:${_NAME}-lib-tests>)
+  endif()
 
   add_dependencies(tests ${_NAME}-lib-tests-run)
 endfunction(cm_add_tests)
