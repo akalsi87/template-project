@@ -356,8 +356,8 @@ function(cm_add_tests)
     add_custom_target(
       ${_NAME}-lib-tests-run
       DEPENDS ${_NAME}-lib-tests
-      COMMAND ${CMAKE_COMMAND} -E env PATH="$ENV{PATH};${CMAKE_INSTALL_PREFIX}/bin"
-              $<TARGET_FILE:${_NAME}-lib-tests>)
+      COMMAND set "PATH=${CMAKE_INSTALL_PREFIX}/bin;%PATH%"
+      COMMAND $<TARGET_FILE:${_NAME}-lib-tests>)
   elseif(APPLE)
     add_custom_target(
       ${_NAME}-lib-tests-run
