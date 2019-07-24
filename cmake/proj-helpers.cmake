@@ -136,7 +136,7 @@ function(cm_add_library)
 #define ${_UNAME}_MINOR_VER ${ver_min}
 #define ${_UNAME}_PATCH_VER ${ver_patch}
 
-#define ${_UNAME}_VERSION \
+#define ${_UNAME}_VERSION_NUMBER \
   (${ver_maj} * 10000 + ${ver_min} * 100 + ${ver_patch})
 
 #endif/*${_UNAME}_EXPORTS_H*/
