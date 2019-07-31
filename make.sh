@@ -12,6 +12,13 @@ gen_arg=""
 shared=0
 target=tests
 
+proj=$(cat CMakeLists.txt | \
+           tr -s '\n' '|' | \
+           grep -o "|project(.*\(\w+\\)" | \
+           tr -d '|' | \
+           tr -s ' ' | \
+           cut -d' ' -f2)
+
 usage() {
     cat <<EOF
 make.sh TARGET
@@ -86,7 +93,7 @@ run_cmake() {
          -DCMAKE_BUILD_TYPE=\"$build_type\" \
          -DBUILD_SHARED_LIBS=\"$shared\" \
          -Wno-dev"
-  
+
     sh -c "$cmd"
     env VERBOSE=1 cmake --build $root/_build \
                         --target $1 \
@@ -97,8 +104,6 @@ install_tests() {
     run_cmake install
     mkdir -p $root/tmp
     trap clear_tmp EXIT
-
-    proj=`basename $root`
 
     cd $root/tmp
 
