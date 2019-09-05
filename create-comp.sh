@@ -8,7 +8,7 @@ root=`dirname $exec`
 comp_path=""
 lang=CXX
 
-function usage() {
+usage() {
     cat <<EOF
 create-comp.sh PATH [--lang=LANG] [-h|--help]
 
@@ -49,10 +49,10 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [[ "$lang" == CXX ]]; then
+if test "$lang" = CXX; then
     hdr_ext='.hxx'
     src_ext='.cxx'
-elif [[ "$lang" == C ]]; then
+elif test "$lang" = C; then
     hdr_ext='.h'
     src_ext='.c'
 else
@@ -80,7 +80,7 @@ print_include_guard() {
 }
 
 print_namespace_begin() {
-    if [[ "$lang" == C ]]; then
+    if test "$lang" = C; then
         return
     fi
     list=$(dirname "$comp_path" | \
@@ -94,7 +94,7 @@ print_namespace_begin() {
 }
 
 print_namespace_end() {
-    if [[ "$lang" == C ]]; then
+    if test "$lang" = C; then
         return
     fi
     list=$(dirname "$comp_path" | \
