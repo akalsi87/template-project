@@ -169,12 +169,12 @@ EOF
     echo "-------- INSTALL TEST COMPLETE --------"
 }
 
-if [[ "$target" == "clean" ]]; then
+if test "$target" = "clean"; then
     rm -fr $root/_build $root/_install
     exit 0
 fi
 
-if [[ "$target" == "install-tests" ]]; then
+if test "$target" = "install-tests"; then
     install_tests
     exit 0
 fi
